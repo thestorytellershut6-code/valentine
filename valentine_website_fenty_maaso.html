@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine, Maaso?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #0b2b26, #ffffff);
+      color: #0b2b26;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      max-width: 520px;
+      text-align: center;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+
+    .letter {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 20px 0 30px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 80px;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #0b2b26;
+      color: white;
+      margin-right: 20px;
+    }
+
+    #noBtn {
+      background: white;
+      color: #0b2b26;
+      border: 2px solid #0b2b26;
+      position: absolute;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .celebration {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 43, 38, 0.95);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .celebration h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .celebration p {
+      font-size: 1.3rem;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="card" id="card">
+    <h1>Maaso 💖</h1>
+    <div class="letter">
+      Thanks to you, I smile a little more, laugh a little harder, and cry a little less.
+      I am so lucky to have you in my life. 💌<br><br>
+      <strong>Will you be my Valentine?</strong>
+    </div>
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+    <p style="margin-top:30px; font-size:0.9rem;">— Love, Fenty</p>
+  </div>
+
+  <div class="celebration hidden" id="celebration">
+    <h2>She said YES!!! 🎉💖</h2>
+    <p>Happy Valentine’s Day, Maaso 🌹<br>
+    You make my world brighter every single day ✨</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const celebration = document.getElementById('celebration');
+    const messages = [
+      'Are you sure? 😳',
+      'Really really sure? 🥺',
+      'My heart can’t take this 💔',
+      'Last chance 😭',
+      'Okay… but what if you reconsider? 😌'
+    ];
+    let msgIndex = 0;
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 300 - 150;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      noBtn.textContent = messages[msgIndex % messages.length];
+      msgIndex++;
+    });
+
+    yesBtn.addEventListener('click', () => {
+      document.getElementById('card').classList.add('hidden');
+      celebration.classList.remove('hidden');
+      startHearts();
+    });
+
+    function startHearts() {
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = ['💖','💘','💕','❤️','🎆','✨'][Math.floor(Math.random()*6)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+      }
+    }
+  </script>
+
+</body>
+</html>
